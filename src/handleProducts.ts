@@ -9,7 +9,7 @@ export type Product = {
 
 export async function getProducts() {
   let products: Product[] = await fetch(
-    "https://fakestoreapi.com/products?limit=5"
+    "https://fakestoreapi.com/products?limit=20"
   ).then((res) => res.json());
   return products;
 }

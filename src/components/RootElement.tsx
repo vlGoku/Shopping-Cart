@@ -11,19 +11,23 @@ export default function RootElement() {
   const { products } = useLoaderData() as { products: Product[] };
   return (
     <>
+      <div id="header-start">
+        <h1 id="header">My Shop</h1>
+      </div>
       <div id="product">
         {products.map((product) => (
-          <div>
-            <div>
+          <div className="cardHolder">
+            <div id="productImg">
               <img height={300} key={product.id} src={product.image} />
             </div>
-            <div>
-              <h1>{product.title}</h1>
-              <i>{product.price}</i>
-              <div>
-                <Form action="edit">
+            <div id="productInfo">
+              <h4>{product.title}</h4>
+              <p>{product.price}</p>
+              <div id="formDiv">
+                <Form action="addToCart" id="formButton">
                   <button
                     type="submit"
+                    id="btnAddCart"
                     onClick={(e) => {
                       e.preventDefault();
                     }}
