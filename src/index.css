@@ -42,7 +42,8 @@
 }
 
 header {
-  position: relative;
+  width: 100vw;
+  position: fixed;
   height: 150px;
   background-color: #333;
   color: white;
@@ -53,7 +54,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 40px;
   margin-left: 20px;
 }
 
@@ -101,16 +102,19 @@ header {
 }
 
 footer {
+  margin-top: 50px;
+  height: 100px;
   background-color: #333;
-  color: white;
-  padding: 10px 0;
-  position: fixed;
+  padding: 40px 0;
   bottom: 0;
   width: 100%;
 }
 
 .footer-container {
-  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+}
+
+.footer-container p {
+  color: white;
 }

@@ -1,14 +1,15 @@
 import { useLoaderData, Form } from "react-router-dom";
-import { getProducts } from "../handleProducts";
-import { Product } from "../handleProducts";
+import { getFiveProducts, getProducts } from "../handleProducts";
+import { Product, FiveProducts } from "../handleProducts";
 
 export async function loader() {
   const products = await getProducts();
-  return { products };
+  const fiveProducts = await getFiveProducts();
+  return { products, fiveProducts };
 }
 
 export default function Index() {
-  const { products } = useLoaderData() as { products: Product[] };
+  const { fiveProducts } = useLoaderData() as { fiveProducts: FiveProducts[] };
   return (
     <>
       <div className="container">
@@ -18,7 +19,7 @@ export default function Index() {
         </div>
       </div>
       <div id="product">
-        {products.map((product) => (
+        {fiveProducts.map((product) => (
           <div className="cardHolder">
             <div id="productImg">
               <img
