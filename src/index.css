@@ -1,3 +1,8 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 .cardHolder {
   box-shadow: 5px 5px 5px 5px lightgray;
   height: 800px;
@@ -24,4 +29,88 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+#productImg {
+  height: 100%;
+  padding: 50px;
+}
+
+#header-start {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  position: relative;
+  height: 150px;
+  background-color: #333;
+  color: white;
+  padding: 40px 0;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.shop-name {
+  font-size: 2em;
+}
+
+.header-menu ul {
+  list-style: none;
+  display: flex;
+}
+
+.header-menu #linkStyle {
+  font-size: 1.5em;
+  margin-right: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.header-menu #linkStyle:last-child {
+  margin-right: 0;
+}
+
+.container {
+  margin: 0 !important;
+}
+
+#backgroundImgDiv {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 70vh;
+  justify-content: center;
+  background-image: url(../src/img/marita-kavelashvili-ugnrXk1129g-unsplash.jpg);
+  background-size: cover;
+  background-position: center center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.indexHeaderDiv {
+  padding-top: 50px;
+  width: 100vw;
+  text-align: center;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
 }
