@@ -1,3 +1,7 @@
+import SingleProduct, {
+  action as productAction,
+  loader as productLoader,
+} from "./components/SingleProduct";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Cart, { action as changeAction } from "./components/Cart";
 import Index, { loader as indexLoader } from "./components/Index";
@@ -19,6 +23,12 @@ export default function Router() {
           element: <Shop />,
           action: shopAction as any,
           loader: shopLoader as any,
+        },
+        {
+          path: "/product/:id",
+          element: <SingleProduct />,
+          loader: productLoader as any,
+          action: productAction as any,
         },
       ],
     },

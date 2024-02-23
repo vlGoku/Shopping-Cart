@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, NavLink } from "react-router-dom";
 import Footer from "./Footer";
 
 export default function Menu() {
@@ -6,7 +6,9 @@ export default function Menu() {
     <>
       <header>
         <div className="header-container">
-          <div className="shop-name">Mein Shop</div>
+          <NavLink id="linkStyle" to={`/`}>
+            <div className="shop-name">Mein Shop</div>
+          </NavLink>
           <nav className="header-menu">
             <ul>
               <Link id="linkStyle" to={`/`}>

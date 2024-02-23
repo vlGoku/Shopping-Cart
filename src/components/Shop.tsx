@@ -1,6 +1,9 @@
-import { useLoaderData, Form, redirect } from "react-router-dom";
+import { useLoaderData, Form, redirect, NavLink } from "react-router-dom";
 import { getProducts } from "../handleProducts";
 import { Product } from "../handleProducts";
+import { useContext } from "react";
+import CartContext from "./CartContext";
+import { IProduct } from "../ts/interfaces/global_interface";
 
 export async function loader() {
   const products = await getProducts();
@@ -13,29 +16,41 @@ export async function action() {
 
 export default function Shop() {
   const { products } = useLoaderData() as { products: Product[] };
+  const [productsCart, setProducts] = useContext(CartContext);
+
+  const handleAdd = (product: IProduct) => {
+    const currentCart = [...productsCart!];
+    const isProductInCart = currentCart.some((item) => item.id === product.id);
+    if (!isProductInCart) {
+      currentCart.push(product);
+      setProducts(currentCart);
+    }
+  };
   return (
     <>
       <div id="product">
         {products.map((product) => (
           <div className="cardHolder">
             <div id="productImg">
-              <img
-                height={300}
-                key={product.id}
-                src={product.image}
-                id="productImg"
-              />
+              <NavLink to={`/product/${product.id}`}>
+                <img
+                  height={300}
+                  key={product.id}
+                  src={product.image}
+                  id="productImg"
+                />
+              </NavLink>
             </div>
             <div id="productInfo">
               <h4>{product.title}</h4>
               <p>{product.price}</p>
               <div id="formDiv">
-                <Form action="addToCart" id="formButton">
+                <Form id="formButton">
                   <button
                     type="submit"
                     id="btnAddCart"
-                    onClick={(e) => {
-                      e.preventDefault();
+                    onClick={() => {
+                      handleAdd(product);
                     }}
                   >
                     Add to Cart

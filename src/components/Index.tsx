@@ -1,4 +1,4 @@
-import { useLoaderData, Form } from "react-router-dom";
+import { useLoaderData, Form, NavLink } from "react-router-dom";
 import { getFiveProducts, getProducts } from "../handleProducts";
 import { Product, FiveProducts } from "../handleProducts";
 
@@ -22,12 +22,14 @@ export default function Index() {
         {fiveProducts.map((product) => (
           <div className="cardHolder">
             <div id="productImg">
-              <img
-                height={300}
-                key={product.id}
-                src={product.image}
-                id="productImg"
-              />
+              <NavLink to={`/product/${product.id}`}>
+                <img
+                  height={300}
+                  key={product.id}
+                  src={product.image}
+                  id="productImg"
+                />
+              </NavLink>
             </div>
             <div id="productInfo">
               <h4>{product.title}</h4>
