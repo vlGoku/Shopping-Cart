@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Link, redirect } from "react-router-dom";
 import CartContext from "./CartContext";
-import { IProduct } from "../ts/interfaces/global_interface";
+import { IProduct, IProductAmount } from "../ts/interfaces/global_interface";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -26,6 +26,14 @@ export default function Cart() {
     setProducts((prevProduct) =>
       prevProduct.filter((prevProduct) => prevProduct.id !== product.id)
     );
+  };
+
+  const handleIncreaseItem = () => {
+    console.log("+");
+  };
+
+  const handleDecreaseItem = () => {
+    console.log("-");
   };
 
   return (
@@ -54,10 +62,18 @@ export default function Cart() {
                   </td>
                   <td>{product.title}</td>
                   <td>
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        handleDecreaseItem();
+                      }}
+                    >
                       <RemoveCircleIcon />
                     </IconButton>
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        handleIncreaseItem();
+                      }}
+                    >
                       <AddCircleIcon />
                     </IconButton>
                   </td>

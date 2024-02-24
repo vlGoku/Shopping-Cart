@@ -1,5 +1,8 @@
 import { getProduct } from "../handleProducts";
 import { Form, NavLink, redirect, useLoaderData } from "react-router-dom";
+import { IProduct } from "../ts/interfaces/global_interface";
+import { useContext } from "react";
+import CartContext from "./CartContext";
 
 export async function loader({ params }: { params: { id: number } }) {
   const product = await getProduct(params.id);
@@ -21,6 +24,16 @@ type ProductType = {
 
 export default function Product() {
   const { product } = useLoaderData() as { product: ProductType };
+  const [productsCart, setProducts] = useContext(CartContext);
+
+  const handleAdd = (product: IProduct) => {
+    const currentCart = [...productsCart!];
+    const isProductInCart = currentCart.some((item) => item.id === product.id);
+    if (!isProductInCart) {
+      currentCart.push(product);
+      setProducts(currentCart);
+    }
+  };
   return (
     <>
       <div id="productDiv">
@@ -36,8 +49,8 @@ export default function Product() {
               <Form action="edit">
                 <button
                   type="submit"
-                  onClick={(e) => {
-                    e.preventDefault();
+                  onClick={() => {
+                    handleAdd(product);
                   }}
                 >
                   Add to cart

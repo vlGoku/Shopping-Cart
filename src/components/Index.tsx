@@ -1,6 +1,9 @@
 import { useLoaderData, Form, NavLink } from "react-router-dom";
 import { getFiveProducts, getProducts } from "../handleProducts";
 import { Product, FiveProducts } from "../handleProducts";
+import { IProduct } from "../ts/interfaces/global_interface";
+import { useContext } from "react";
+import CartContext from "./CartContext";
 
 export async function loader() {
   const products = await getProducts();
@@ -10,6 +13,16 @@ export async function loader() {
 
 export default function Index() {
   const { fiveProducts } = useLoaderData() as { fiveProducts: FiveProducts[] };
+  const [productsCart, setProducts] = useContext(CartContext);
+
+  const handleAdd = (product: IProduct) => {
+    const currentCart = [...productsCart!];
+    const isProductInCart = currentCart.some((item) => item.id === product.id);
+    if (!isProductInCart) {
+      currentCart.push(product);
+      setProducts(currentCart);
+    }
+  };
   return (
     <>
       <div className="container">
@@ -39,8 +52,8 @@ export default function Index() {
                   <button
                     type="submit"
                     id="btnAddCart"
-                    onClick={(e) => {
-                      e.preventDefault();
+                    onClick={() => {
+                      handleAdd(product);
                     }}
                   >
                     Add to Cart
