@@ -6,6 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { IconButton } from "@mui/material";
+import { produce } from "immer";
 
 export async function action() {
   return redirect(`/cart`);
@@ -29,27 +30,21 @@ export default function Cart() {
   };
 
   const handleIncreaseItem = (product: IProduct) => {
-    setProducts((prevProduct) =>
-      prevProduct.map((prevProduct) => {
-        if (prevProduct.id === product.id) {
-          return { ...prevProduct, amount: prevProduct.amount + 1 };
-        }
-        return prevProduct;
-      })
-    );
+    const nextState = produce(products, (draft) => {
+      const index = draft!.findIndex((p) => p.id === product.id);
+      draft![index].amount++;
+    });
+    setProducts(nextState!);
   };
 
   const handleDecreaseItem = (product: IProduct) => {
-    setProducts((prevProduct) =>
-      prevProduct
-        .map((prevProduct) => {
-          if (prevProduct.id === product.id) {
-            return { ...prevProduct, amount: prevProduct.amount - 1 };
-          }
-          return prevProduct;
-        })
-        .filter((prevProduct) => prevProduct.amount !== 0)
-    );
+    const nextState = produce(products, (draft) => {
+      const index = draft!.findIndex((p) => p.id === product.id);
+      if (draft![index].amount > 1) {
+        draft![index].amount--;
+      }
+    });
+    setProducts(nextState!);
   };
 
   return (
