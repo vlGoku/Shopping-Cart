@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, redirect } from "react-router-dom";
 import CartContext from "./CartContext";
 import { IProduct } from "../ts/interfaces/global_interface";
@@ -29,24 +29,27 @@ export default function Cart() {
   };
 
   const handleIncreaseItem = (product: IProduct) => {
-    const copy = [...products!];
-    const productsNew = copy.filter((prod) => prod.id !== product.id);
-    product.amount++;
-    product.price = product.amount * product.singlePrice;
-    productsNew.push(product);
-    setProducts(productsNew);
+    setProducts((prevProduct) =>
+      prevProduct.map((prevProduct) => {
+        if (prevProduct.id === product.id) {
+          return { ...prevProduct, amount: prevProduct.amount + 1 };
+        }
+        return prevProduct;
+      })
+    );
   };
 
   const handleDecreaseItem = (product: IProduct) => {
-    const copy = [...products!];
-    const productsNew = copy.filter((prod) => prod.id !== product.id);
-    if (product.amount > 1) {
-      product.amount--;
-      product.price -= product.singlePrice;
-      setProducts(productsNew);
-    } else {
-      deleteItem(product);
-    }
+    setProducts((prevProduct) =>
+      prevProduct
+        .map((prevProduct) => {
+          if (prevProduct.id === product.id) {
+            return { ...prevProduct, amount: prevProduct.amount - 1 };
+          }
+          return prevProduct;
+        })
+        .filter((prevProduct) => prevProduct.amount !== 0)
+    );
   };
 
   return (
