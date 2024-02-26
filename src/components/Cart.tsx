@@ -33,6 +33,7 @@ export default function Cart() {
     const productsNew = copy.filter((prod) => prod.id !== product.id);
     product.amount++;
     product.price = product.amount * product.singlePrice;
+    productsNew.push(product);
     setProducts(productsNew);
   };
 
