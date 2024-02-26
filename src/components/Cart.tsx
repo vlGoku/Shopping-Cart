@@ -33,6 +33,7 @@ export default function Cart() {
     const nextState = produce(products, (draft) => {
       const index = draft!.findIndex((p) => p.id === product.id);
       draft![index].amount++;
+      draft![index].price = draft![index].singlePrice * draft![index].amount;
     });
     setProducts(nextState!);
   };
@@ -42,6 +43,7 @@ export default function Cart() {
       const index = draft!.findIndex((p) => p.id === product.id);
       if (draft![index].amount > 1) {
         draft![index].amount--;
+        draft![index].price -= draft![index].singlePrice;
       }
     });
     setProducts(nextState!);

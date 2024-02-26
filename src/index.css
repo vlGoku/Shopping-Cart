@@ -37,7 +37,7 @@
 }
 
 #product-card img {
-  width: 100%;
+  max-width: 100%;
   height: auto;
 }
 
@@ -60,8 +60,9 @@
 }
 
 #productImg {
-  height: 100%;
-  padding: 50px;
+  height: auto;
+  max-width: 100%;
+  padding: 10px;
 }
 
 #header-start {
