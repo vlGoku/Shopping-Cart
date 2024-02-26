@@ -15,7 +15,7 @@ export async function action() {
 }
 
 export default function Shop() {
-  const { products } = useLoaderData() as { products: Product[] };
+  const { products } = useLoaderData() as { products: IProduct[] };
   const [productsCart, setProducts] = useContext(CartContext);
 
   const handleAdd = (product: IProduct) => {
@@ -23,6 +23,8 @@ export default function Shop() {
     const isProductInCart = currentCart.some((item) => item.id === product.id);
     if (!isProductInCart) {
       currentCart.push(product);
+      product.amount = 1;
+      product.singlePrice = product.price;
       setProducts(currentCart);
     }
   };
@@ -30,20 +32,15 @@ export default function Shop() {
     <>
       <div id="product">
         {products.map((product) => (
-          <div className="cardHolder">
+          <div className="cardHolder" key={product.id}>
             <div id="productImg">
               <NavLink to={`/product/${product.id}`}>
-                <img
-                  height={300}
-                  key={product.id}
-                  src={product.image}
-                  id="productImg"
-                />
+                <img height={300} src={product.image} id="productImg" />
               </NavLink>
             </div>
             <div id="productInfo">
               <h4>{product.title}</h4>
-              <p>{product.price}</p>
+              <p>{product.price}€</p>
               <div id="formDiv">
                 <Form id="formButton">
                   <button

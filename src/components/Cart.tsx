@@ -1,7 +1,7 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, redirect } from "react-router-dom";
 import CartContext from "./CartContext";
-import { IProduct, IProductAmount } from "../ts/interfaces/global_interface";
+import { IProduct } from "../ts/interfaces/global_interface";
 import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -19,7 +19,7 @@ export default function Cart() {
     products.map((product) => {
       sum += product.price;
     });
-    return sum;
+    return sum.toFixed(2);
   };
 
   const deleteItem = (product: IProduct) => {
@@ -28,12 +28,24 @@ export default function Cart() {
     );
   };
 
-  const handleIncreaseItem = () => {
-    console.log("+");
+  const handleIncreaseItem = (product: IProduct) => {
+    const copy = [...products!];
+    const productsNew = copy.filter((prod) => prod.id !== product.id);
+    product.amount++;
+    product.price = product.amount * product.singlePrice;
+    setProducts(productsNew);
   };
 
-  const handleDecreaseItem = () => {
-    console.log("-");
+  const handleDecreaseItem = (product: IProduct) => {
+    const copy = [...products!];
+    const productsNew = copy.filter((prod) => prod.id !== product.id);
+    if (product.amount > 1) {
+      product.amount--;
+      product.price -= product.singlePrice;
+      setProducts(productsNew);
+    } else {
+      deleteItem(product);
+    }
   };
 
   return (
@@ -56,7 +68,7 @@ export default function Cart() {
           <tbody>
             {products?.map((product: IProduct): JSX.Element => {
               return (
-                <tr>
+                <tr key={product.id}>
                   <td>
                     <img id="imgCart" src={product.image} />
                   </td>
@@ -64,20 +76,21 @@ export default function Cart() {
                   <td>
                     <IconButton
                       onClick={() => {
-                        handleDecreaseItem();
+                        handleDecreaseItem(product);
                       }}
                     >
                       <RemoveCircleIcon />
                     </IconButton>
+                    {product.amount}
                     <IconButton
                       onClick={() => {
-                        handleIncreaseItem();
+                        handleIncreaseItem(product);
                       }}
                     >
                       <AddCircleIcon />
                     </IconButton>
                   </td>
-                  <td>{product.price}</td>
+                  <td>{product.price.toFixed(2)}€</td>
                   <td>
                     <IconButton
                       onClick={() => {

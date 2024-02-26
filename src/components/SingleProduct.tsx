@@ -1,5 +1,5 @@
 import { getProduct } from "../handleProducts";
-import { Form, NavLink, redirect, useLoaderData } from "react-router-dom";
+import { Form, redirect, useLoaderData } from "react-router-dom";
 import { IProduct } from "../ts/interfaces/global_interface";
 import { useContext } from "react";
 import CartContext from "./CartContext";
@@ -13,17 +13,8 @@ export async function action() {
   return redirect(`/product/:id`);
 }
 
-type ProductType = {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  description: string;
-  image: string;
-};
-
 export default function Product() {
-  const { product } = useLoaderData() as { product: ProductType };
+  const { product } = useLoaderData() as { product: IProduct };
   const [productsCart, setProducts] = useContext(CartContext);
 
   const handleAdd = (product: IProduct) => {
@@ -31,6 +22,8 @@ export default function Product() {
     const isProductInCart = currentCart.some((item) => item.id === product.id);
     if (!isProductInCart) {
       currentCart.push(product);
+      product.amount = 1;
+      product.singlePrice = product.price;
       setProducts(currentCart);
     }
   };
@@ -44,9 +37,9 @@ export default function Product() {
           <div>
             <h3>{product.title}</h3>
             <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
+            <p>Price: {product.price}€</p>
             <div>
-              <Form action="edit">
+              <Form>
                 <button
                   type="submit"
                   onClick={() => {

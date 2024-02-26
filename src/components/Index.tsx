@@ -20,6 +20,8 @@ export default function Index() {
     const isProductInCart = currentCart.some((item) => item.id === product.id);
     if (!isProductInCart) {
       currentCart.push(product);
+      product.amount = 1;
+      product.singlePrice = product.price;
       setProducts(currentCart);
     }
   };
@@ -33,7 +35,7 @@ export default function Index() {
       </div>
       <div id="product">
         {fiveProducts.map((product) => (
-          <div className="cardHolder">
+          <div className="cardHolder" key={product.id}>
             <div id="productImg">
               <NavLink to={`/product/${product.id}`}>
                 <img
@@ -46,9 +48,9 @@ export default function Index() {
             </div>
             <div id="productInfo">
               <h4>{product.title}</h4>
-              <p>{product.price}</p>
+              <p>{product.price}€</p>
               <div id="formDiv">
-                <Form action="addToCart" id="formButton">
+                <Form id="formButton">
                   <button
                     type="submit"
                     id="btnAddCart"
