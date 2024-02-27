@@ -23,6 +23,14 @@ export default function Cart() {
     return sum.toFixed(2);
   };
 
+  const addAmount = (products: IProduct[]) => {
+    let sum = 0;
+    products.map((product) => {
+      sum += product.amount;
+    });
+    return sum;
+  };
+
   const deleteItem = (product: IProduct) => {
     setProducts((prevProduct) =>
       prevProduct.filter((prevProduct) => prevProduct.id !== product.id)
@@ -111,7 +119,7 @@ export default function Cart() {
         <table>
           <thead>
             <tr>
-              <th>Amount: {products?.length}</th>
+              <th>Amount: {addAmount(products!)}</th>
               <th>Total Price in €: {addSum(products!)}</th>
             </tr>
           </thead>

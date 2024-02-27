@@ -12,10 +12,7 @@
   flex-direction: column;
   justify-content: center;
   padding: 10px;
-}
-
-#productDiv {
-  height: 100vh;
+  justify-content: space-between;
 }
 
 #product {
@@ -24,6 +21,15 @@
   align-items: center;
   justify-content: center;
   padding-top: 150px;
+}
+
+#productDiv {
+  padding-top: 200px;
+}
+
+#productInfo {
+  display: flex;
+  flex-direction: column;
 }
 
 #product-card {
@@ -56,7 +62,6 @@
 #formDiv {
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 #productImg {

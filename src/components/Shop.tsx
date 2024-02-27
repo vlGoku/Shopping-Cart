@@ -41,19 +41,19 @@ export default function Shop() {
             <div id="productInfo">
               <h4>{product.title}</h4>
               <p>{product.price}€</p>
-              <div id="formDiv">
-                <Form id="formButton">
-                  <button
-                    type="submit"
-                    id="btnAddCart"
-                    onClick={() => {
-                      handleAdd(product);
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                </Form>
-              </div>
+            </div>
+            <div id="formDiv">
+              <Form id="formButton">
+                <button
+                  type="submit"
+                  id="btnAddCart"
+                  onClick={() => {
+                    handleAdd(product);
+                  }}
+                >
+                  Add to Cart
+                </button>
+              </Form>
             </div>
           </div>
         ))}
