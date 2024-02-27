@@ -1,6 +1,5 @@
 import { useLoaderData, Form, redirect, NavLink } from "react-router-dom";
 import { getProducts } from "../handleProducts";
-import { Product } from "../handleProducts";
 import { useContext } from "react";
 import CartContext from "./CartContext";
 import { IProduct } from "../ts/interfaces/global_interface";
